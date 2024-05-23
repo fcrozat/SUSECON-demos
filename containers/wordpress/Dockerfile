@@ -4,6 +4,6 @@ RUN zypper --non-interactive in unzip php8-mysql
 
 RUN cd /tmp && curl -O -L https://wordpress.org/latest.zip
 
-RUN unzip /tmp/latest.zip -d /srv/www/htdocs/
+RUN unzip /tmp/latest.zip -d /tmp/ && mv /tmp/wordpress/* /srv/www/htdocs/  && mkdir -p /srv/wp-content && chown wwwrun:www /srv/wp-content
 
 COPY wp-config.php /srv/www/htdocs/

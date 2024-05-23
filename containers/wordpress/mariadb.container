@@ -4,8 +4,13 @@ After=network-online.target
 
 [Container]
 Image=registry.suse.com/suse/mariadb:latest
-PublishPort=3306:3306
-Environment=MARIADB_ROOT_PASSWORD=rootpassword 
+Environment=MARIADB_ROOT_PASSWORD=rootpassword
+Environment=MARIADB_DATABASE=wordpress
+Environment=MARIADB_USER=SUSECON
+Environment=MARIADB_PASSWORD=geeko
+Network=wordpress.network
+ContainerName=susecon-mariadb
+
 
 Volume=/var/lib/mysql:/var/lib/mysql:Z
 AutoUpdate=registry

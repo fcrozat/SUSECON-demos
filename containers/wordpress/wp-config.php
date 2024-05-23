@@ -29,13 +29,15 @@ define( 'DB_USER', 'SUSECON' );
 define( 'DB_PASSWORD', 'geeko' );
 
 /** Database hostname */
-define( 'DB_HOST', 'localhost' );
+define( 'DB_HOST', 'susecon-mariadb' );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
 
 /** The database collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
+
+define( 'WP_CONTENT_DIR', '/srv/wp-content' );
 
 /**#@+
  * Authentication unique keys and salts.

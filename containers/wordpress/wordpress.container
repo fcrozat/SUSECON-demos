@@ -1,0 +1,21 @@
+[Unit]
+Description=Wordpress
+After=network-online.target
+
+[Container]
+Image=localhost/wordpress:latest
+PublishPort=8888:80
+Network=wordpress.network
+ContainerName=susecon-wordpress
+
+Volume=/var/lib/wordpress:/srv/wp-content:Z
+AutoUpdate=registry
+Timezone=local
+
+[Service]
+Restart=on-failure
+ExecStartPre=-/usr/bin/mkdir -p /var/lib/wordpress
+ExecStartPre=-/usr/bin/chcon -R system_u:object_r:container_file_t:s0 -P /var/lib/wordpress
+
+[Install]
+WantedBy=multi-user.target default.target
