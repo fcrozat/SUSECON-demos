@@ -1,0 +1,18 @@
+[Unit]
+Description=MariaDB server
+After=network-online.target
+
+[Container]
+Image=registry.suse.com/suse/mariadb:latest
+Publish=3306:3306
+Environment=MARIADB_ROOT_PASSWORD=rootpassword 
+
+Volume=/var/lib/mysql:/var/lib/mysql:Z
+AutoUpdate=registry
+Timezone=local
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target default.target
