@@ -4,7 +4,7 @@ After=network-online.target
 
 [Container]
 Image=registry.suse.com/suse/mariadb:latest
-Publish=3306:3306
+PublishPort=3306:3306
 Environment=MARIADB_ROOT_PASSWORD=rootpassword 
 
 Volume=/var/lib/mysql:/var/lib/mysql:Z
@@ -13,6 +13,8 @@ Timezone=local
 
 [Service]
 Restart=on-failure
+ExecStartPre=-/usr/bin/mkdir /var/lib/mysql
+ExecStartPre=-/usr/bin/chcon -R system_u:object_r:container_file_t:s0 -P /var/lib/mysql
 
 [Install]
 WantedBy=multi-user.target default.target
