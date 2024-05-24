@@ -1,0 +1,10 @@
+[Unit]
+Description=SUSECON Pod
+After=network-online.target
+
+[Pod]
+Network=wordpress.network
+PodName=susecon
+
+[Install]
+WantedBy=multi-user.target default.target

@@ -10,8 +10,7 @@ Environment=MARIADB_USER=SUSECON
 Environment=MARIADB_PASSWORD=geeko
 Network=wordpress.network
 ContainerName=susecon-mariadb
-
-
+Pod=susecon.pod
 Volume=/var/lib/mysql:/var/lib/mysql:Z
 AutoUpdate=registry
 Timezone=local
