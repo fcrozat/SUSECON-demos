@@ -1,3 +1,5 @@
+#!BuildTag: wordpress:latest
+
 FROM registry.suse.com/bci/php-apache:8
 
 RUN zypper --non-interactive in unzip php8-mysql
