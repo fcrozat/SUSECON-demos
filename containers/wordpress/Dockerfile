@@ -1,11 +1,10 @@
 #!BuildTag: wordpress:latest
+#!RemoteAssetUrl: https://wordpress.org/latest.tar.gz
 
 FROM registry.suse.com/bci/php-apache:8
 
-RUN zypper --non-interactive in unzip php8-mysql
+RUN zypper --non-interactive in php8-mysql
 
-RUN cd /tmp && curl -O -L https://wordpress.org/latest.zip
-
-RUN unzip /tmp/latest.zip -d /tmp/ && mv /tmp/wordpress/* /srv/www/htdocs/
+RUN curl --output-dir /tmp -O -L https://wordpress.org/latest.tar.gz && tar --strip-components=1 -C /srv/www/htdocs -xvf /tmp/latest.tar.gz
 
 COPY wp-config.php /srv/www/htdocs/
