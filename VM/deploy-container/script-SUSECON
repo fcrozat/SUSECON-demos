@@ -1,0 +1,23 @@
+#!/bin/bash
+# combustion: network
+# script generated with https://opensuse.github.io/fuel-ignition/
+
+# Redirect output to the console
+exec > >(exec tee -a /dev/tty0) 2>&1
+
+# Registration on SUSE system
+test -e /etc/os-release && os_release='/etc/os-release' || os_release='/usr/lib/os-release'
+grep -q 'cpe:.*:suse:' "${os_release}"
+if [[ $? == 0 ]]; then
+ if ! which SUSEConnect > /dev/null 2>&1; then
+    zypper --non-interactive install suseconnect-ng
+ fi
+ SUSEConnect --email EMAIL --url https://scc.suse.com --regcode REGCODE
+ curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/mariadb.container
+ curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/susecon.pod
+ curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/wordpress.container
+ curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/wordpress.network
+fi
+
+# Leave a marker
+echo "Configured with combustion" > /etc/issue.d/combustion
