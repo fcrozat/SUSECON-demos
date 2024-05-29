@@ -1,5 +1,4 @@
 #!BuildTag: wordpress:latest
-#!RemoteAssetUrl: https://wordpress.org/latest.tar.gz
 
 FROM registry.suse.com/bci/php-apache:8
 
