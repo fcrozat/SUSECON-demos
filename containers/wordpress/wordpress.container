@@ -3,7 +3,7 @@ Description=Wordpress
 After=network-online.target
 
 [Container]
-Image=localhost/wordpress:latest
+Image=registry.opensuse.org/home/fcrozat/susecon/containerfile/wordpress:latest
 PublishPort=8888:80
 Network=wordpress.network
 ContainerName=susecon-wordpress
