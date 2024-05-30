@@ -4,6 +4,7 @@ After=network-online.target
 
 [Kube]
 Yaml=susecon.yaml
+Network=wordpress-network
 
 [Install]
 WantedBy=multi-user.target default.target
