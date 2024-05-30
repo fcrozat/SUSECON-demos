@@ -2,3 +2,7 @@
 NetworkName=wordpress-network
 Subnet=192.168.42.0/24
 Gateway=192.168.42.1
+
+[Service]
+# only needed with podman < 5.0
+ExecStartPost=-/usr/bin/podman pod create --replace --network wordpress-network susecon
