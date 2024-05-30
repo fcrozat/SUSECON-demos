@@ -1,0 +1,9 @@
+[Unit]
+Description=Wordpress demo
+After=network-online.target
+
+[Kube]
+Yaml=susecon.yaml
+
+[Install]
+WantedBy=multi-user.target default.target

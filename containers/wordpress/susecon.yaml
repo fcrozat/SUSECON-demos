@@ -1,0 +1,43 @@
+# Save the output of this file and use kubectl create -f to import
+# it into Kubernetes.
+#
+# Created with podman-4.9.3
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    bind-mount-options: /var/lib/mysql:Z
+    io.containers.autoupdate/susecon-mariadb: registry
+    io.containers.autoupdate/susecon-wordpress: registry
+  creationTimestamp: "2024-05-29T17:04:52Z"
+  labels:
+    app: susecon
+  name: susecon
+spec:
+  containers:
+  - args:
+    - apache2-foreground
+    image: registry.opensuse.org/home/fcrozat/susecon/containerfile/wordpress:latest
+    name: susecon-wordpress
+  - args:
+    - mariadbd
+    env:
+    - name: MARIADB_PASSWORD
+      value: geeko
+    - name: MARIADB_ROOT_PASSWORD
+      value: rootpassword
+    - name: MARIADB_USER
+      value: SUSECON
+    - name: MARIADB_DATABASE
+      value: wordpress
+    image: registry.suse.com/suse/mariadb:latest
+    name: susecon-mariadb
+    volumeMounts:
+    - mountPath: /var/lib/mysql
+      name: var-lib-mysql-host-0
+  volumes:
+  - hostPath:
+      path: /var/lib/mysql
+      type: Directory
+    name: var-lib-mysql-host-0
+
