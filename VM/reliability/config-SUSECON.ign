@@ -25,6 +25,16 @@
         "path": "/home",
         "wipeFilesystem": false
       }
+    ],
+    "files": [
+      {
+        "path": "/etc/hostname",
+        "mode": 420,
+        "overwrite": true,
+        "contents": {
+          "source": "data:,susecon-reliability"
+        }
+      }
     ]
   }
 }
