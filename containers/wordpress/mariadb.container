@@ -1,6 +1,7 @@
 [Unit]
 Description=MariaDB server
 After=network-online.target
+Before=health-checker.service
 
 [Container]
 Image=registry.suse.com/suse/mariadb:10.6

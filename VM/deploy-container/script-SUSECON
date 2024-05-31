@@ -17,6 +17,8 @@ if [[ $? == 0 ]]; then
  curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/susecon.pod
  curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/wordpress.container
  curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/wordpress.network
+ curl -O -L --output-dir /usr/libexec/health-checker https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/podman-container.sh
+ chmod +x /usr/libexec/health-checker/podman-container.sh
 fi
 
 # Leave a marker
