@@ -1,12 +1,11 @@
 #!/bin/bash
 
 run_checks() {
-    systemctl is-failed -q mariadb
-    test $? -ne 1 && exit 1
+    podman system info > /dev/null 
+    test $? -ne 0 && exit 1
 }
 
 stop_services() {
-    systemctl stop mariadb
 }
 
 case "$1" in
