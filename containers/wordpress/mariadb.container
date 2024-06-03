@@ -13,7 +13,8 @@ Network=wordpress.network
 ContainerName=susecon-mariadb
 #only available in Podman >= 5.0.x
 #Pod=susecon.pod
-PodmanArgs=--pod susecon
+#doesn't work well with auto-update on Podman < 5.0
+#PodmanArgs=--pod susecon
 Volume=/var/lib/mysql:/var/lib/mysql:Z
 AutoUpdate=registry
 Timezone=local

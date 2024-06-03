@@ -5,4 +5,5 @@ Gateway=192.168.42.1
 
 [Service]
 # only needed with podman < 5.0
-ExecStartPost=-/usr/bin/podman pod create --replace --network wordpress-network susecon
+# keep disabled, prevent auto-update with podman < 5.0
+#ExecStartPost=-/usr/bin/podman pod create --replace --network wordpress-network susecon

@@ -8,7 +8,8 @@ PublishPort=8888:80
 Network=wordpress.network
 ContainerName=susecon-wordpress
 #Pod=susecon
-PodmanArgs=--pod susecon
+#doesn't work well with auto-update on Podman < 5.0
+#PodmanArgs=--pod susecon
 AutoUpdate=registry
 Timezone=local
 
