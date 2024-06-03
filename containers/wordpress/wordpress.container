@@ -12,6 +12,7 @@ ContainerName=susecon-wordpress
 #PodmanArgs=--pod susecon
 AutoUpdate=registry
 Timezone=local
+Notify=true
 
 [Service]
 Restart=on-failure
