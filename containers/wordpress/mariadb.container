@@ -18,6 +18,8 @@ ContainerName=susecon-mariadb
 Volume=/var/lib/mysql:/var/lib/mysql:Z
 AutoUpdate=registry
 Timezone=local
+Notify=true
+Volume=/etc/containers/systemd/notify-systemd.sh:/docker-entrypoint-initdb.d/notify-systemd.sh
 
 [Service]
 Restart=on-failure
