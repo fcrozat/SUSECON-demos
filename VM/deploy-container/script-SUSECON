@@ -24,7 +24,8 @@ if [[ $? == 0 ]]; then
  mkdir -p /root/container
  curl -O -L --output-dir /root/container https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/Dockerfile
  curl -O -L --output-dir /root/container https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/wp-config.php
- chmod +x /usr/libexec/health-checker/podman-container.sh
+ curl -O -L --output-dir /root/container https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/build.sh
+ chmod +x /usr/libexec/health-checker/podman-container.sh /root/container/build.sh
 fi
 
 # Leave a marker
