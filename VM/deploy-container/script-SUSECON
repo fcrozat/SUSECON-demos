@@ -15,9 +15,9 @@ if [[ $? == 0 ]]; then
  SUSEConnect --email EMAIL --url https://scc.suse.com --regcode REGCODE
  curl -O -L --output-dir /etc/containers https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/susecon.yaml
  curl -O -L --output-dir /etc/containers https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/susecon.kube
+ curl -O -L --output-dir /etc/containers https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/susecon.pod
  curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/mariadb.container
  curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/notify-systemd.sh
- curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/susecon.pod
  curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/wordpress.container
  curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/wordpress.network
  curl -O -L --output-dir /usr/libexec/health-checker https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/VM/deploy-containers/podman-container.sh
