@@ -4,13 +4,16 @@ After=network-online.target
 
 [Container]
 Image=registry.opensuse.org/home/fcrozat/susecon/containerfile/wordpress:latest
+#to use local pull for demo purpose
+#Image=localhost/wordpress:latest
 PublishPort=8888:80
 Network=wordpress.network
 ContainerName=susecon-wordpress
 #Pod=susecon
 #doesn't work well with auto-update on Podman < 5.0
 #PodmanArgs=--pod susecon
-AutoUpdate=registry
+# use local to demo rollback on local pull
+AutoUpdate=local
 Timezone=local
 Notify=true
 
