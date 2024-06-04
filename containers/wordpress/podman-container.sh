@@ -6,6 +6,7 @@ run_checks() {
 }
 
 stop_services() {
+    exit 0
 }
 
 case "$1" in
