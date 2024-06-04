@@ -19,6 +19,10 @@
       {
         "name": "cockpit.socket",
         "enabled": true
+      },
+      {
+        "name": "podman.socket",
+        "enabled": true
       }
     ]
   },
