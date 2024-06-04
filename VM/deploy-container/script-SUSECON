@@ -20,7 +20,7 @@ if [[ $? == 0 ]]; then
  curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/susecon.pod
  curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/wordpress.container
  curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/wordpress.network
- curl -O -L --output-dir /usr/libexec/health-checker https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/podman-container.sh
+ curl -O -L --output-dir /usr/libexec/health-checker https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/VM/deploy-containers/podman-container.sh
  mkdir -p /root/container
  curl -O -L --output-dir /root/container https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/Dockerfile
  curl -O -L --output-dir /root/container https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/wp-config.php
