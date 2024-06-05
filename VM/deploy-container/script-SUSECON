@@ -13,21 +13,32 @@ if [[ $? == 0 ]]; then
     zypper --non-interactive install suseconnect-ng
  fi
  SUSEConnect --email EMAIL --url https://scc.suse.com --regcode REGCODE
- curl -O -L --output-dir /etc/containers https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/susecon.yaml
- curl -O -L --output-dir /etc/containers https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/susecon.kube
+fi
+
+ # only useful for Podman 5.x
  curl -O -L --output-dir /etc/containers https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/susecon.pod
+
+ # demo containers
  curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/mariadb.container
  curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/notify-systemd.sh
  curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/wordpress.container
  curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/wordpress.network
+ 
+ # additional example 
+ curl -O -L --output-dir /etc/containers https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/susecon.yaml
+ curl -O -L --output-dir /etc/containers https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/susecon.kube
+
+ # health-checker scripts
  curl -O -L --output-dir /usr/libexec/health-checker https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/VM/deploy-container/podman-container.sh
  curl -O -L --output-dir /usr/libexec/health-checker https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/VM/reliability/sshd.sh
+ chmod +x /usr/libexec/health-checker/podman-container.sh /usr/libexec/health-checker/sshd.sh  
+
+ # dockerfile to build container locally
  mkdir -p /root/container
  curl -O -L --output-dir /root/container https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/Dockerfile
  curl -O -L --output-dir /root/container https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/wp-config.php
  curl -O -L --output-dir /root/container https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/build.sh
- chmod +x /usr/libexec/health-checker/podman-container.sh /usr/libexec/health-checker/sshd.sh  /root/container/build.sh
-fi
+ chmod +x /root/container/build.sh
 
 # Leave a marker
 echo "Configured with combustion" > /etc/issue.d/combustion
