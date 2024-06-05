@@ -46,7 +46,7 @@
     <emulator>/usr/bin/qemu-system-x86_64</emulator>
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2'/>
-      <source file='/var/cache/mirror/susecon-slmicro6-talk.qcow2'/>
+      <source file='/var/lib/libvirt/images/susecon-slmicro6-talk.qcow2'/>
       <target dev='vda' bus='virtio'/>
       <address type='pci' domain='0x0000' bus='0x07' slot='0x00' function='0x0'/>
     </disk>
