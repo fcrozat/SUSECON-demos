@@ -7,10 +7,6 @@
       {
         "name": "root",
         "passwordHash": "TO_BE_FILLED"
-      },
-      {
-        "name": "tux",
-        "passwordHash": "TO_BE_FILLED"
       }
     ]
   },
