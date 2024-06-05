@@ -1,6 +1,6 @@
 [Unit]
 Description=Wordpress
-After=network-online.target
+After=network-online.target mariadb.service
 
 [Container]
 Image=registry.opensuse.org/home/fcrozat/susecon/containerfile/wordpress:latest
