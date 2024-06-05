@@ -30,7 +30,7 @@ fi
 
  # health-checker scripts
  curl -O -L --output-dir /usr/libexec/health-checker https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/VM/deploy-container/podman-container.sh
- curl -O -L --output-dir /usr/libexec/health-checker https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/VM/reliability/sshd.sh
+ curl -O -L --output-dir /usr/libexec/health-checker https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/VM/deploy-container/sshd.sh
  chmod +x /usr/libexec/health-checker/podman-container.sh /usr/libexec/health-checker/sshd.sh  
 
  # dockerfile to build container locally
