@@ -4,7 +4,7 @@ After=network-online.target mariadb.service
 
 [Container]
 Image=registry.opensuse.org/home/fcrozat/susecon/containerfile/wordpress:latest
-PublishPort=8888:80
+PublishPort=80:80
 Network=wordpress.network
 ContainerName=susecon-wordpress
 #Pod=susecon
