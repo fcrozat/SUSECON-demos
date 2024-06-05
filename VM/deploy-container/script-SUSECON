@@ -20,12 +20,13 @@ if [[ $? == 0 ]]; then
  curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/notify-systemd.sh
  curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/wordpress.container
  curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/wordpress.network
- curl -O -L --output-dir /usr/libexec/health-checker https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/VM/deploy-containers/podman-container.sh
+ curl -O -L --output-dir /usr/libexec/health-checker https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/VM/deploy-container/podman-container.sh
+ curl -O -L --output-dir /usr/libexec/health-checker https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/VM/reliability/sshd.sh
  mkdir -p /root/container
  curl -O -L --output-dir /root/container https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/Dockerfile
  curl -O -L --output-dir /root/container https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/wp-config.php
  curl -O -L --output-dir /root/container https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/build.sh
- chmod +x /usr/libexec/health-checker/podman-container.sh /root/container/build.sh
+ chmod +x /usr/libexec/health-checker/podman-container.sh /usr/libexec/health-checker/sshd.sh  /root/container/build.sh
 fi
 
 # Leave a marker
