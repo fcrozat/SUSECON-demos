@@ -66,7 +66,7 @@
     + check if sshd is still running: health-checker caused an automated rollback due to sshd not running in the new snapshot
     + check `openssh-server` is still installed
 * Let's try to remove podman
-    + t`ransactional-update pkg rm podman`
+    + `transactional-update pkg rm podman`
     + reboot (it will reboot twice)
     + podman is still there, container are still running
 
