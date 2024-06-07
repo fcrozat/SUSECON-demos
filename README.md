@@ -1,34 +1,10 @@
 # SLE Micro demos for SUSECON 2024
 
-## Full disk encryption demo
-### Requirements
-* SLE Micro 6.0 Encrypted image: download from <https://www.suse.com/download/sle-micro/> image named **SLE-Micro.x86_64-6.0-Default-encrypted-GM.raw**
-* x86_64 UEFI Secure boot system with TPM 2.0 chip
+## Best OS to run containers
+### Why ?
+SLE Micro 6.x can run workloads in both containers and VM. 
 
-### Setup
-* grab libvirt VM XML definitions from <https://github.com/fcrozat/SUSECON-demos/tree/main/VM/fde>
-* copy **SLE-Micro.x86_64-6.0-Default-encrypted-GM.raw** to your libvirt image directory (usually `/var/lib/libvirt/images`) as name **susecon-slmicro6-fde.raw**
-* Import two VM definitions using  `virsh define --file your_vm_definition.xml`
-* You will have 2 VMS, one with (virtual) TPM 2.0 chip and another without. Both are sharing the same disk image.
-
-### Running demo
-#### Initial deployment
-* Start susecon-slem6-fde VM
-* Initial boot (until Grub2 is displayed) is very slow, due to initial decryption being done in Real x86 mode by grub2
-* Choose the default in grub2 and follow the boot sequence
-* Ensure Full disk enrollment is done, with TPM and also setup a recovery passphrase.
-* Login, check system is encrypted (`lsblk`)
-* Reboot. No passphrase prompt and double-check system is still encrypted
-* Shutdown VM
-
-#### Simulate unauthorized offline access
-* Now, let's simulate a unauthorized access to the encrypted disk (somebody stole it or it is move to another physical system)
-* Boot non TPM VM
-* System will not boot. Instead grub2 asks for passphrase. You can enter recovery passphrase to continue booting
-* Shutdown VM
-* Boot initial TPM VM : system will boot without human intervention since the keys in TPM chip are still valid.
-
-## Container HostOS
+Let's see why we think it is the best OS to run your container workloads.
 
 ### Requirements
 * SLE Micro 6.0 Default image: download from <https://www.suse.com/download/sle-micro/> image named **SLE-Micro.x86_64-6.0-Default-qcow-GM.qcow2**
@@ -44,7 +20,7 @@
 ### Run demo
 #### Initial deployment
 * Boot VM
-* Initial setup is done using Ignition and Combustion
+* Initial setup is done using [Ignition](https://coreos.github.io/ignition/) and [Combustion](https://github.com/openSUSE/combustion). You can create your own files using [Fuel Ignition](https://opensuse.github.io/fuel-ignition/).
 * Once booted, login as root to cockpit running on the VM (address visible on login prompt)
 * Two containers are already deployed and running
     + [mariadb](https://registry.suse.com/repositories/suse-mariadb) container, using SLE BCI container 
@@ -83,3 +59,34 @@
 * build using `/root/container/build.sh`
 * deploy the update using `podman auto-update`
 * new container wouldn't start properly, podman rolled-back to the previous image, which is restarted and running. Wordpress is still accessible
+
+## Full disk encryption demo
+### Why ?
+SLE Micro 6.0 introduced Full-Disk Encryption integrated with TPM 2.0, allowing unattended system boot, protecting from offline attacks.
+
+### Requirements
+* SLE Micro 6.0 Encrypted image: download from <https://www.suse.com/download/sle-micro/> image named **SLE-Micro.x86_64-6.0-Default-encrypted-GM.raw**
+* x86_64 UEFI Secure boot system with TPM 2.0 chip
+
+### Setup
+* grab libvirt VM XML definitions from <https://github.com/fcrozat/SUSECON-demos/tree/main/VM/fde>
+* copy **SLE-Micro.x86_64-6.0-Default-encrypted-GM.raw** to your libvirt image directory (usually `/var/lib/libvirt/images`) as name **susecon-slmicro6-fde.raw**
+* Import two VM definitions using  `virsh define --file your_vm_definition.xml`
+* You will have 2 VMS, one with (virtual) TPM 2.0 chip and another without. Both are sharing the same disk image.
+
+### Running demo
+#### Initial deployment
+* Start susecon-slem6-fde VM
+* Initial boot (until Grub2 is displayed) is very slow, due to initial decryption being done in Real x86 mode by grub2
+* Choose the default in grub2 and follow the boot sequence
+* Ensure Full disk enrollment is done, with TPM and also setup a recovery passphrase.
+* Login, check system is encrypted (`lsblk`)
+* Reboot. No passphrase prompt and double-check system is still encrypted
+* Shutdown VM
+
+#### Simulate unauthorized offline access
+* Now, let's simulate a unauthorized access to the encrypted disk (somebody stole it or it is move to another physical system)
+* Boot non TPM VM
+* System will not boot. Instead grub2 asks for passphrase. You can enter recovery passphrase to continue booting
+* Shutdown VM
+* Boot initial TPM VM : system will boot without human intervention since the keys in TPM chip are still valid.
