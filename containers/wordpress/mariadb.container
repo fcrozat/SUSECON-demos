@@ -25,6 +25,7 @@ Volume=/etc/containers/systemd/notify-systemd.sh:/docker-entrypoint-initdb.d/not
 Restart=on-failure
 ExecStartPre=-/usr/bin/mkdir -p /var/lib/mysql
 ExecStartPre=-/usr/bin/chcon -R system_u:object_r:container_file_t:s0 -P /var/lib/mysql
+TimeoutStartSec=500
 
 [Install]
 WantedBy=multi-user.target default.target
