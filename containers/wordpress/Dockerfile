@@ -2,6 +2,8 @@
 
 FROM registry.suse.com/bci/php-apache:8
 
+RUN zypper --non-interactive up 
+
 RUN zypper --non-interactive in php8-mysql
 
 RUN curl --output-dir /tmp -O -L https://wordpress.org/latest.tar.gz
