@@ -19,7 +19,7 @@ Volume=/var/lib/mysql:/var/lib/mysql:Z
 AutoUpdate=registry
 Timezone=local
 Notify=true
-Volume=/etc/containers/systemd/notify-systemd.sh:/docker-entrypoint-initdb.d/notify-systemd.sh
+Volume=/etc/containers/systemd/notify-systemd.py:/docker-entrypoint-initdb.d/notify-systemd.py
 
 [Service]
 Restart=on-failure
