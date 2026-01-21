@@ -14,7 +14,7 @@ Let's see why we think it is the best OS to run your container workloads.
 * Copy VM image to /**var/lib/libvirt/images/susecon-slmicro6-talk.qcow2**
 * Edit libvirt xml definition with the real path for ignition file **config-SUSECON.ign** and combustion script **script-SUSECON**
 * Import VM definition using  `virsh define --file your_vm_definition.xml`
-* Edit `config-SUSECON.ign`  with password hash for root user. You can generate it using:
+* Edit `config-SUSECON.ign`  with password hashes for root and linux users. You can generate them using:
 `openssl passwd -6 -salt $(head -c18 /dev/urandom | openssl base64)`
 * Edit `script-SUSECON` with your SCC credentials.
 
