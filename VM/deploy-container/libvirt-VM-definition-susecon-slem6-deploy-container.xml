@@ -1,6 +1,5 @@
 <domain type='kvm'>
   <name>susecon-slem6-deploy-container</name>
-  <uuid>0a430410-3ab2-4f84-813f-91ff8e2fe4e5</uuid>
   <metadata>
     <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
       <libosinfo:os id="http://opensuse.org/opensuse/tumbleweed"/>
@@ -20,7 +19,7 @@
       <feature enabled='yes' name='secure-boot'/>
     </firmware>
     <loader readonly='yes' secure='yes' type='pflash'>/usr/share/qemu/ovmf-x86_64-smm-ms-code.bin</loader>
-    <nvram template='/usr/share/qemu/ovmf-x86_64-smm-ms-vars.bin'>/var/lib/libvirt/qemu/nvram/susecon-slem6-talk_VARS.fd</nvram>
+    <nvram template='/usr/share/qemu/ovmf-x86_64-smm-ms-vars.bin'>/var/lib/libvirt/qemu/nvram/susecon-slem6-deploy-container_VARS.fd</nvram>
     <boot dev='hd'/>
   </os>
   <features>
@@ -46,7 +45,7 @@
     <emulator>/usr/bin/qemu-system-x86_64</emulator>
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2'/>
-      <source file='/var/lib/libvirt/images/susecon-slmicro6-talk.qcow2'/>
+      <source file='/var/lib/libvirt/images/susecon-slmicro6-deploy-container.qcow2'/>
       <target dev='vda' bus='virtio'/>
       <address type='pci' domain='0x0000' bus='0x07' slot='0x00' function='0x0'/>
     </disk>
