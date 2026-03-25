@@ -19,14 +19,13 @@ fi
 BASE_URL="https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress"
 which podman > /dev/null 2>&1 && PODMAN_VERSION=$(podman --version | awk '{print $3}') || PODMAN_VERSION="0.0.0"
 if [[ $(printf '%s\n' "5.6" "$PODMAN_VERSION" | sort -V | head -n1) == "5.6" ]]; then
-    podman quadlet install $BASE_URL/susecon.pod
-    podman quadlet install $BASE_URL/mariadb.container
-    podman quadlet install $BASE_URL/wordpress.container
-    podman quadlet install $BASE_URL/wordpress.network
+    podman quadlet install --replace $BASE_URL/susecon.pod
+    podman quadlet install --replace $BASE_URL/mariadb.container
+    podman quadlet install --replace $BASE_URL/wordpress.container
+    podman quadlet install --replace $BASE_URL/wordpress.network
 else
-    # only useful for Podman 5.x
-    curl -O -L --output-dir /etc/containers $BASE_URL/susecon.pod
     # demo containers
+    curl -O -L --output-dir /etc/containers $BASE_URL/susecon.pod
     curl -O -L --output-dir /etc/containers/systemd $BASE_URL/mariadb.container
     curl -O -L --output-dir /etc/containers/systemd $BASE_URL/wordpress.container
     curl -O -L --output-dir /etc/containers/systemd $BASE_URL/wordpress.network
