@@ -15,23 +15,37 @@ if [[ $? == 0 ]]; then
  SUSEConnect --email EMAIL --url https://scc.suse.com --regcode REGCODE
 fi
 
- # only useful for Podman 5.x
- curl -O -L --output-dir /etc/containers https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/susecon.pod
+ # Podman Quadlet installation
+ BASE_URL="https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress"
+ which podman > /dev/null 2>&1 && PODMAN_VERSION=$(podman --version | awk '{print $3}') || PODMAN_VERSION="0.0.0"
+ if [[ $(printf '%s\n' "5.6" "$PODMAN_VERSION" | sort -V | head -n1) == "5.6" ]]; then
+     podman quadlet install $BASE_URL/susecon.pod
+     podman quadlet install $BASE_URL/mariadb.container
+     podman quadlet install $BASE_URL/notify-systemd.py
+     podman quadlet install $BASE_URL/wordpress.container
+     podman quadlet install $BASE_URL/wordpress.network
+     podman quadlet install $BASE_URL/susecon.yaml
+     podman quadlet install $BASE_URL/susecon.kube
+ else
+     # only useful for Podman 5.x
+     curl -O -L --output-dir /etc/containers $BASE_URL/susecon.pod
 
- # demo containers
- curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/mariadb.container
- curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/notify-systemd.py
- curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/wordpress.container
- curl -O -L --output-dir /etc/containers/systemd https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/wordpress.network
- 
- # additional example 
- curl -O -L --output-dir /etc/containers https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/susecon.yaml
- curl -O -L --output-dir /etc/containers https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/susecon.kube
+     # demo containers
+     curl -O -L --output-dir /etc/containers/systemd $BASE_URL/mariadb.container
+     curl -O -L --output-dir /etc/containers/systemd $BASE_URL/notify-systemd.py
+     curl -O -L --output-dir /etc/containers/systemd $BASE_URL/wordpress.container
+     curl -O -L --output-dir /etc/containers/systemd $BASE_URL/wordpress.network
+
+     # additional example
+     curl -O -L --output-dir /etc/containers $BASE_URL/susecon.yaml
+     curl -O -L --output-dir /etc/containers $BASE_URL/susecon.kube
+ fi
 
  # health-checker scripts
- curl -O -L --output-dir /usr/libexec/health-checker https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/VM/deploy-container/podman-container.sh
- curl -O -L --output-dir /usr/libexec/health-checker https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/VM/deploy-container/sshd.sh
- chmod +x /usr/libexec/health-checker/podman-container.sh /usr/libexec/health-checker/sshd.sh  
+ mkdir -p /usr/local/libexec/health-checker
+ curl -O -L --output-dir /usr/local/libexec/health-checker https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/VM/deploy-container/podman-container.sh
+ curl -O -L --output-dir /usr/local/libexec/health-checker https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/VM/deploy-container/sshd.sh
+ chmod +x /usr/local/libexec/health-checker/podman-container.sh /usr/local/libexec/health-checker/sshd.sh
 
  # dockerfile to build container locally
  mkdir -p /root/container
