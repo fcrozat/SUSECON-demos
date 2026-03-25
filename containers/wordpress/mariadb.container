@@ -12,7 +12,7 @@ Environment=MARIADB_PASSWORD=geeko
 Network=wordpress.network
 ContainerName=susecon-mariadb
 #only available in Podman >= 5.0.x
-#Pod=susecon.pod
+Pod=susecon.pod
 #doesn't work well with auto-update on Podman < 5.0
 #PodmanArgs=--pod susecon
 Volume=/var/lib/mysql:/var/lib/mysql:Z
