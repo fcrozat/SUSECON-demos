@@ -21,38 +21,35 @@ which podman > /dev/null 2>&1 && PODMAN_VERSION=$(podman --version | awk '{print
 if [[ $(printf '%s\n' "5.6" "$PODMAN_VERSION" | sort -V | head -n1) == "5.6" ]]; then
     podman quadlet install $BASE_URL/susecon.pod
     podman quadlet install $BASE_URL/mariadb.container
-    podman quadlet install $BASE_URL/notify-systemd.py
     podman quadlet install $BASE_URL/wordpress.container
     podman quadlet install $BASE_URL/wordpress.network
-    podman quadlet install $BASE_URL/susecon.yaml
-    podman quadlet install $BASE_URL/susecon.kube
 else
     # only useful for Podman 5.x
     curl -O -L --output-dir /etc/containers $BASE_URL/susecon.pod
-
     # demo containers
     curl -O -L --output-dir /etc/containers/systemd $BASE_URL/mariadb.container
-    curl -O -L --output-dir /etc/containers/systemd $BASE_URL/notify-systemd.py
     curl -O -L --output-dir /etc/containers/systemd $BASE_URL/wordpress.container
     curl -O -L --output-dir /etc/containers/systemd $BASE_URL/wordpress.network
 
-    # additional example
-    curl -O -L --output-dir /etc/containers $BASE_URL/susecon.yaml
-    curl -O -L --output-dir /etc/containers $BASE_URL/susecon.kube
 fi
+curl -O -L --output-dir /etc/containers/systemd $BASE_URL/notify-systemd.py
 
- # health-checker scripts
- mkdir -p /usr/local/libexec/health-checker
- curl -O -L --output-dir /usr/local/libexec/health-checker https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/VM/deploy-container/podman-container.sh
- curl -O -L --output-dir /usr/local/libexec/health-checker https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/VM/deploy-container/sshd.sh
- chmod +x /usr/local/libexec/health-checker/podman-container.sh /usr/local/libexec/health-checker/sshd.sh
+# additional example
+curl -O -L --output-dir /etc/containers $BASE_URL/susecon.yaml
+curl -O -L --output-dir /etc/containers $BASE_URL/susecon.kube
 
- # dockerfile to build container locally
- mkdir -p /root/container
- curl -O -L --output-dir /root/container https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/Dockerfile
- curl -O -L --output-dir /root/container https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/wp-config.php
- curl -O -L --output-dir /root/container https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/build.sh
- chmod +x /root/container/build.sh
+# health-checker scripts
+mkdir -p /usr/local/libexec/health-checker
+curl -O -L --output-dir /usr/local/libexec/health-checker https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/VM/deploy-container/podman-container.sh
+curl -O -L --output-dir /usr/local/libexec/health-checker https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/VM/deploy-container/sshd.sh
+chmod +x /usr/local/libexec/health-checker/podman-container.sh /usr/local/libexec/health-checker/sshd.sh
+
+# dockerfile to build container locally
+mkdir -p /root/container
+curl -O -L --output-dir /root/container https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/Dockerfile
+curl -O -L --output-dir /root/container https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/wp-config.php
+curl -O -L --output-dir /root/container https://raw.githubusercontent.com/fcrozat/SUSECON-demos/main/containers/wordpress/build.sh
+chmod +x /root/container/build.sh
 
 # Leave a marker
 echo "Configured with combustion" > /etc/issue.d/combustion
