@@ -8,7 +8,7 @@ PublishPort=80:80
 Network=wordpress.network
 ContainerName=susecon-wordpress
 # use with podman 5.x
-Pod=susecon
+Pod=susecon.pod
 #doesn't work well with auto-update on Podman < 5.0
 #PodmanArgs=--pod susecon
 # use local to demo rollback on local pull
