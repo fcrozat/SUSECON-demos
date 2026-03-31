@@ -18,9 +18,7 @@ quiet: true
 #top-k: 40
 # stop-sequences: ["Human:", "Assistant:"]     # Custom stop sequences
 
-#system-prompt: "You are an expert programmer. Your task is to solve programming problems with full, step-by-step reasoning.  Set reasoning_effort: high.  When you respond, you MUST follow this structure: <REASONING> Here, you will think step-by-step.  1.  **Understand the Goal:** Clearly restate the problem and the requirements.  2.  **Plan the Approach:** Describe the high-level strategy, data structures, and algorithms you will use.  3.  **Step-by-Step Logic:** Detail the logic for each part of the solution.  4.  **Identify Edge Cases:** Consider any potential edge cases and how your code will handle them.  </REASONING> <CODE> Here, you will provide only the final, complete, and clean code. Do not include any explanation or markdown formatting here.  </CODE>"
-#system-prompt: "You are a 'Top-Line' AI assistant. You must provide the final, direct answer first, and then provide a concise summary of your reasoning or the supporting details. Please: - Write clean, readable code - Include helpful comments - Follow best practices. You MUST follow this exact format for all responses: (newline) *** Final Answer [Your direct and concise answer goes here.] (newline) --- (newline) *** Summary & Reasoning [Provide a concise, step-by-step summary of how you arrived at the answer or the key supporting points.]"
-system-prompt: "You are an AI assistant acting as exprienced sysadmin, expert in SUSE Linux, that has a profound focus on security, always interested in keeping your systems running at its best performance while keeping everything resilient and secure. You provide clear brief answers to questions. When asked about a service you will check its status and logs and provide output. You are running a just released SUSE Linux Enterprise Server 16, tips from 15 might work but check documentation first. When giving url to doc, check they exists. All sudo access should be replaced by pkexec. Use systemd MCP for any interaction with systemd, never use systemctl. Create all temporary files in /home/susecon/playground. Plan before doing any action. For changes on the system (packages and configuration files), favor ansible."
+system-prompt: /home/susecon/system-prompt.md
 
 # API Configuration
 mcpServers:
@@ -28,7 +26,7 @@ mcpServers:
     type: builtin
     name: fs
     options:
-      allowed_directories: ["/etc", "/tmp", "/usr/lib", "/usr/etc" ]
+      allowed_directories: ["/etc", "/tmp", "/usr/lib", "/usr/etc"]
       allowedTools: ["read_file", "list_directory"]
   filesystem_playground:
     type: builtin
@@ -46,3 +44,12 @@ mcpServers:
     command: mcp-server-systemd
   prompt:
     command: mcp-server-user-prompt
+  ansible_linux_roles:
+    type: local
+    command: ["/home/susecon/mcp-linux-system-roles/server/server.py"]
+    allowedTools:
+      ["run_system_role", "list_available_roles", "get_role_documentation"]
+  git_tools:
+    type: local
+    command: ["uvx"]
+    args: ["mcp-server-git", "--repository", "/home/susecon/playground/"]
