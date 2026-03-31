@@ -26,7 +26,7 @@ mcpServers:
     type: builtin
     name: fs
     options:
-      allowed_directories: ["/etc", "/tmp", "/usr/lib", "/usr/etc"]
+      allowed_directories: ["/etc", "/tmp", "/usr/lib", "/usr/etc", "/proc"]
       allowedTools: ["read_file", "list_directory"]
   filesystem_playground:
     type: builtin
