@@ -99,20 +99,20 @@ SLE Micro 6.x introduced Full-Disk Encryption integrated with TPM 2.0, allowing 
 SLES 16.0 is shipping with mcphost as tech preview. We want to demo how it can be used
 
 ## Setup
-* Enable PackageHub and install mcphost (you can also install a more recent version from https://build.opensuse.org/package/show/science:machinelearning:mcp/mcphost )
-* from https://build.opensuse.org/project/show/science:machinelearning:mcp, you should install mcp-server-systemd and mcp-server-user-prompt packages
+* Enable PackageHub and install mcphost (you can also install a more recent version from <https://build.opensuse.org/package/show/science:machinelearning:mcp/mcphost> )
+* from <https://build.opensuse.org/project/show/science:machinelearning:mcp>, you should install `mcp-server-systemd` and `mcp-server-user-prompt packages`
 * in `~/.bashrc`, add 
   + `export GOOGLE_API_KEY=your_gemini_api_key`
 * relax polkit rules to allow reading logs for mcp-server-systemd:
-  * add to /etc/polkit-default-privs/local
-    * com.suse.gatekeeper.readlog auth_admin_keep:yes:yes
-  * run set_polkit_default_privs as root
+  * add to `/etc/polkit-default-privs/local`
+    * `com.suse.gatekeeper.readlog auth_admin_keep:yes:yes`
+  * run `set_polkit_default_privs` as root
 * copy <https://github.com/fcrozat/SUSECON-demos/raw/refs/heads/main/mcphost/mcphost.demo.yaml> to `~/.mcphost.yml`
 * copy <https://github.com/fcrozat/SUSECON-demos/raw/refs/heads/main/mcphost/system-prompt.txt> to `~/system-prompt.txt`
-* mkdir ~/playground (this directory is preconfigured to store temporary files in the demo mcphost configuration and prompt)
+* `mkdir ~/playground` (this directory is preconfigured to store temporary files in the demo mcphost configuration and prompt)
 
 ## Running demo
-* be sure to run mcphost in a graphical terminal, as a regular user. Running on a ssh or tty terminal will cause systemd MCP server to fail elevate its privileges when needed, since it relies on polkit to ask for root credentials, which will only work in graphical environment in the current setup.
+* be sure to run `mcphost` in a graphical terminal, as a regular user. Running on a ssh or tty terminal will cause systemd MCP server to fail elevate its privileges when needed, since it relies on pkexec to ask for root credentials, which will only work in graphical environment in the current setup.
 * run `mcphost`
 * as example queries, you can ask:
   * which processes are running ?
@@ -121,5 +121,5 @@ SLES 16.0 is shipping with mcphost as tech preview. We want to demo how it can b
   * deploy wordpress on top of LAMP stack
   * ask to restart one systemd service
   * check system logs for errors
-* actions which requires root privileges should prompt a authentication popup from PolicyKit (through pkexec). 
-* due to provided prompt, ansible will be used if possible
+* actions which requires root privileges should prompt a authentication popup from PolicyKit (through `pkexec`). 
+* due to provided prompt, `ansible` will be used if possible
