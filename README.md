@@ -1,13 +1,14 @@
-# SLE Micro demos for SUSECON 2024
+# SLE Micro demos for SUSECON
 
 ## Best OS to run containers
 ### Why ?
-SLE Micro 6.x can run workloads in both containers and VM. 
+SLE Micro 6.x / SLES 16.1 (in immutable mode) can run workloads in both containers and VM. 
 
-Let's see why we think it is the best OS to run your container workloads.
+Let's see why we think they are best OS to run your container workloads.
 
 ### Requirements
-* SLE Micro 6.0 Default image: download from <https://www.suse.com/download/sle-micro/> image named **SLE-Micro.x86_64-6.0-Default-qcow-GM.qcow2**
+* SLE Micro 6.x Default image: download from <https://www.suse.com/download/sle-micro/> image named **SLE-Micro.x86_64-6.x-Default-qcow-GM.qcow2**
+* or SLES 16.1, deployed in immutable mode
 
 ### Setup
 * Checkout <https://github.com/fcrozat/SUSECON-demos/tree/main/VM/deploy-container> directory
@@ -19,7 +20,7 @@ Let's see why we think it is the best OS to run your container workloads.
 * Edit `script-SUSECON` with your SCC credentials.
 
 ### Run demo
-#### Initial deployment
+#### Initial deployment for SLE Micro 
 * Boot VM
 * Initial setup is done using [Ignition](https://coreos.github.io/ignition/) and [Combustion](https://github.com/openSUSE/combustion). You can create your own files using [Fuel Ignition](https://opensuse.github.io/fuel-ignition/).
 * Once booted, login as root to cockpit running on the VM (address visible on login prompt)
@@ -35,7 +36,7 @@ Let's see why we think it is the best OS to run your container workloads.
 * two additional health-checks were deployed on the image :
     + sshd service check
     + podman being present on the system
-    + those health-checkers scripts were deployed to `/usr/libexec/health-checker/`
+    + those health-checkers scripts were deployed to `/usr/local/libexec/health-checker/`
 * Let's uninstall ssh server
     + `transactional-update pkg rm openssh-server`
     + openssh-server and its dependencies are removed in a snapshot which is becoming only live after reboot
@@ -63,15 +64,15 @@ Let's see why we think it is the best OS to run your container workloads.
 
 ## Full disk encryption demo
 ### Why ?
-SLE Micro 6.0 introduced Full-Disk Encryption integrated with TPM 2.0, allowing unattended system boot, protecting from offline attacks.
+SLE Micro 6.x introduced Full-Disk Encryption integrated with TPM 2.0, allowing unattended system boot, protecting from offline attacks.
 
 ### Requirements
-* SLE Micro 6.0 Encrypted image: download from <https://www.suse.com/download/sle-micro/> image named **SLE-Micro.x86_64-6.0-Default-encrypted-GM.raw**
+* SLE Micro 6.x Encrypted image: download from <https://www.suse.com/download/sle-micro/> image named **SLE-Micro.x86_64-6.x-Default-encrypted-GM.raw**
 * x86_64 UEFI Secure boot system with TPM 2.0 chip
 
 ### Setup
 * grab libvirt VM XML definitions from <https://github.com/fcrozat/SUSECON-demos/tree/main/VM/fde>
-* copy **SLE-Micro.x86_64-6.0-Default-encrypted-GM.raw** to your libvirt image directory (usually `/var/lib/libvirt/images`) as name **susecon-slmicro6-fde.raw**
+* copy **SLE-Micro.x86_64-6.x-Default-encrypted-GM.raw** to your libvirt image directory (usually `/var/lib/libvirt/images`) as name **susecon-slmicro6-fde.raw**
 * Import two VM definitions using  `virsh define --file your_vm_definition.xml`
 * You will have 2 VMS, one with (virtual) TPM 2.0 chip and another without. Both are sharing the same disk image.
 
@@ -91,3 +92,34 @@ SLE Micro 6.0 introduced Full-Disk Encryption integrated with TPM 2.0, allowing 
 * System will not boot. Instead grub2 asks for passphrase. You can enter recovery passphrase to continue booting
 * Shutdown VM
 * Boot initial TPM VM : system will boot without human intervention since the keys in TPM chip are still valid.
+
+
+# MCPHost demo
+## Why ?
+SLES 16.0 is shipping with mcphost as tech preview. We want to demo how it can be used
+
+## Setup
+* Enable PackageHub and install mcphost (you can also install a more recent version from https://build.opensuse.org/package/show/science:machinelearning:mcp/mcphost )
+* from https://build.opensuse.org/project/show/science:machinelearning:mcp, you should install mcp-server-systemd and mcp-server-user-prompt packages
+* in `~/.bashrc`, add 
+  + `export GOOGLE_API_KEY=your_gemini_api_key`
+* relax polkit rules to allow reading logs for mcp-server-systemd:
+  * add to /etc/polkit-default-privs/local
+    * com.suse.gatekeeper.readlog auth_admin_keep:yes:yes
+  * run set_polkit_default_privs as root
+* copy <https://github.com/fcrozat/SUSECON-demos/raw/refs/heads/main/mcphost/mcphost.demo.yaml> to `~/.mcphost.yml`
+* copy <https://github.com/fcrozat/SUSECON-demos/raw/refs/heads/main/mcphost/system-prompt.txt> to `~/system-prompt.txt`
+* mkdir ~/playground (this directory is preconfigured to store temporary files in the demo mcphost configuration and prompt)
+
+## Running demo
+* be sure to run mcphost in a graphical terminal, as a regular user. Running on a ssh or tty terminal will cause systemd MCP server to fail elevate its privileges when needed, since it relies on polkit to ask for root credentials, which will only work in graphical environment in the current setup.
+* run `mcphost`
+* as example queries, you can ask:
+  * which processes are running ?
+  * deploy apache
+  * deploy LAMP stack without container (or with container)
+  * deploy wordpress on top of LAMP stack
+  * ask to restart one systemd service
+  * check system logs for errors
+* actions which requires root privileges should prompt a authentication popup from PolicyKit (through pkexec). 
+* due to provided prompt, ansible will be used if possible
