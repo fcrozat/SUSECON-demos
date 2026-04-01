@@ -49,7 +49,3 @@ mcpServers:
     command: ["/home/susecon/mcp-linux-system-roles/server/server.py"]
     allowedTools:
       ["run_system_role", "list_available_roles", "get_role_documentation"]
-  git_tools:
-    type: local
-    command: ["uvx"]
-    args: ["mcp-server-git", "--repository", "/home/susecon/playground/"]
