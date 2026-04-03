@@ -4,9 +4,10 @@
 # MCP Servers configuration
 
 # Application settings
-#model: "google/gemini-2.5-pro" # Or "google:gemini-2.0-pro" if you want
-model: "google/gemini-3.1-flash-lite-preview" # Or "google:gemini-2.0-pro" if you want
-#model: "google/gemini-3.1-pro-preview" # Or "google:gemini-2.0-pro" if you want
+# WARNING mcphost after version 0.34.0 changed syntax from provider:model to provider/model
+#model: "google:gemini-2.5-pro" # Or "google:gemini-2.0-pro" if you want
+model: "google:gemini-3.1-flash-lite-preview" # Or "google:gemini-2.0-pro" if you want
+#model: "google:gemini-3.1-pro-preview" # Or "google:gemini-2.0-pro" if you want
 max-steps: 20
 debug: false
 quiet: true
