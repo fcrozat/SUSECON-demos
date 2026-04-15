@@ -121,5 +121,9 @@ SLES 16.0 is shipping with mcphost as tech preview. We want to demo how it can b
   * deploy wordpress on top of LAMP stack
   * ask to restart one systemd service
   * check system logs for errors
+  * using gemini-3.1-pro-preview model:
+  ** deploy nextcloud 31 from upstream zip, configure all dependencies and returns only when nextcloud is running
+  ** then once it is working
+  ** upgrade nextcloud to latest upstream version
 * actions which requires root privileges should prompt a authentication popup from PolicyKit (through `pkexec`). 
 * due to provided prompt, `ansible` will be used if possible
