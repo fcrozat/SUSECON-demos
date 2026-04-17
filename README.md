@@ -109,7 +109,7 @@ SLES 16.0 is shipping with mcphost as tech preview. We want to demo how it can b
   * run `set_polkit_default_privs` as root
 * copy <https://github.com/fcrozat/SUSECON-demos/raw/refs/heads/main/mcphost/mcphost.demo.yaml> to `~/.mcphost.yml`
 * copy <https://github.com/fcrozat/SUSECON-demos/raw/refs/heads/main/mcphost/system-prompt.txt> to `~/system-prompt.txt`
-* `mkdir ~/playground` (this directory is preconfigured to store temporary files in the demo mcphost configuration and prompt)
+* `mkdir ~/logs` (this directory is preconfigured to store temporary files in the demo mcphost configuration and prompt)
 
 ## Running demo
 * be sure to run `mcphost` in a graphical terminal, as a regular user. Running on a ssh or tty terminal will cause systemd MCP server to fail elevate its privileges when needed, since it relies on pkexec to ask for root credentials, which will only work in graphical environment in the current setup.

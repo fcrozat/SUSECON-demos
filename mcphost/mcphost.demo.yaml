@@ -8,7 +8,8 @@
 #model: "google:gemini-2.5-pro" # Or "google:gemini-2.0-pro" if you want
 model: "google:gemini-3.1-flash-lite-preview" # Or "google:gemini-2.0-pro" if you want
 #model: "google:gemini-3.1-pro-preview" # Or "google:gemini-2.0-pro" if you want
-max-steps: 20
+max-tokens: 8192
+max-steps: 60
 debug: false
 quiet: true
 
@@ -23,17 +24,25 @@ system-prompt: /home/susecon/system-prompt.md
 
 # API Configuration
 mcpServers:
+  filesystem_rw:
+    type: builtin
+    name: fs
+    options:
+      allowed_directories: ["/home/susecon", "/home/susecon/logs"]
+      allowedTools: ["write_file", "read_file", "list_directory"]
   filesystem_ro:
     type: builtin
     name: fs
     options:
-      allowed_directories: ["/etc", "/tmp", "/usr/lib", "/usr/etc", "/proc"]
+      allowed_directories: ["/etc", "/tmp", "/usr/lib", "/usr/etc", "/proc", "/home/susecon"]
       allowedTools: ["read_file", "list_directory"]
-  filesystem_playground:
-    type: builtin
-    name: fs
-    options:
-      allowed_directories: ["/home/susecon/playground"]
+
+  ansible_linux_roles:
+    type: local
+    command: ["/home/susecon/mcp-linux-system-roles/server/server.py"]
+    allowedTools:
+      ["run_system_role", "list_available_roles", "get_role_documentation"]
+
 
   bash-commands:
     type: builtin
