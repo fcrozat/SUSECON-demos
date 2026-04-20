@@ -54,8 +54,3 @@ mcpServers:
     command: mcp-server-systemd
   prompt:
     command: mcp-server-user-prompt
-  ansible_linux_roles:
-    type: local
-    command: ["/home/susecon/mcp-linux-system-roles/server/server.py"]
-    allowedTools:
-      ["run_system_role", "list_available_roles", "get_role_documentation"]
