@@ -101,6 +101,7 @@ SLES 16.0 is shipping with mcphost as tech preview. We want to demo how it can b
 ## Setup
 * Enable PackageHub and install mcphost (you can also install a more recent version from <https://build.opensuse.org/package/show/science:machinelearning:mcp/mcphost> )
 * from <https://build.opensuse.org/project/show/science:machinelearning:mcp>, you should install `mcp-server-systemd` and `mcp-server-user-prompt packages`
+* you also need a check-out of <https://github.com/Spectro34/mcp-linux-system-roles/> to be used by mcphost
 * in `~/.bashrc`, add 
   + `export GOOGLE_API_KEY=your_gemini_api_key`
 * relax polkit rules to allow reading logs for mcp-server-systemd:
