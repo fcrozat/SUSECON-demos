@@ -4,7 +4,7 @@ After=network-online.target
 Before=health-checker.service
 
 [Container]
-Image=registry.suse.com/suse/mariadb:10.6
+Image=registry.suse.com/suse/mariadb:11.8
 Environment=MARIADB_ROOT_PASSWORD=rootpassword
 Environment=MARIADB_DATABASE=wordpress
 Environment=MARIADB_USER=SUSECON
