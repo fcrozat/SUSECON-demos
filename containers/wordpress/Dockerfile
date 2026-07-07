@@ -6,7 +6,7 @@ RUN zypper --non-interactive up
 
 RUN zypper --non-interactive in php8-mysql
 
-RUN curl --output-dir /tmp -O -L https://wordpress.org/latest.tar.gz
+RUN cd /tmp && curl -O -L https://wordpress.org/latest.tar.gz
 
 RUN tar --strip-components=1 -C /srv/www/htdocs -xvf /tmp/latest.tar.gz
 
